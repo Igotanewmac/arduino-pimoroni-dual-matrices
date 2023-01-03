@@ -54,6 +54,11 @@ private:
     uint8_t _registercache_pwm = 0b10000000;
 
 
+    /// @brief Two 5x8 arrays of bitmap cache
+    uint8_t _pixelStateBuffer[2][5] = { { 0 } };
+
+    /// @brief Thebuffer for the decimal points.
+    uint8_t _pixelDecimalPointBuffer = 0;
 
 
 
@@ -73,6 +78,47 @@ public:
 
 
     
+
+
+
+    // pixel control!
+
+
+    /// @brief Set a pixel to on or off.
+    /// @param matrix The matrix upon which the pixel resides. 0 for left, 1 for right.
+    /// @param xpos The x position of the pixel, starting at the top left.
+    /// @param ypos The y position of the pixel, starting at the top left.
+    /// @param state The state of the pixel.  1 for on, 0 for off.
+    void pixelSet( uint8_t matrix , uint8_t xpos , uint8_t ypos , uint8_t state );
+
+    /// @brief Get a picels state as a uint8_t.
+    /// @param matrix The matrix in which the pixel resides.  0 for left, 1 for right.
+    /// @param xpos The x position of the pixel, starting at the top left.
+    /// @param ypos The y position of the pixel, starting at the top left.
+    /// @return The state of the pixel as a uint8_t.
+    uint8_t pixelGet( uint8_t matrix , uint8_t xpos , uint8_t ypos );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
