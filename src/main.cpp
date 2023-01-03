@@ -12,8 +12,21 @@
 
 
 
+PimoroniDualMatrice mydualmatrice;
+
+#define PIMORONIDUALMATRICEI2CADDRESS 0x61
+
+
+
+
 void setup() {
   // put your setup code here, to run once:
+  
+  
+  mydualmatrice.begin( PIMORONIDUALMATRICEI2CADDRESS );
+  
+  
+  
   wire.begin();
 
   // config register

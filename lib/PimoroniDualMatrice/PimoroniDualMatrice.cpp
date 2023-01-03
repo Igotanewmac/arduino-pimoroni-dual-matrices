@@ -7,6 +7,93 @@
 
 
 
+
+
+/*
+************************************* Private Methods.
+*/
+
+
+
+
+
+
+/// @brief Write a single byte to the chip.
+/// @param address The address to write to.
+/// @param data The byte to write to the give address.
+void PimoroniDualMatrice::_chipByteSet( uint8_t address , uint8_t data ) {
+
+    // send over a single byte.
+    wire.beginTransmission( _i2cAddress );
+    wire.write( address );
+    wire.write( data );
+    wire.endTransmission();
+
+    // all done, return to caller.
+    return;
+
+}
+
+
+
+/// @brief Gets a byte from the chip.
+/// @param address The address to retereive.
+/// @return The data at that address, as a uint8_t.
+uint8_t PimoroniDualMatrice::_chipByteGet( uint8_t address ) {
+
+    // send over the address
+    wire.beginTransmission( _i2cAddress );
+    wire.write( address );
+    wire.endTransmission();
+
+    // Request a byte back...
+    wire.requestFrom( _i2cAddress , (uint8_t)(1) );
+    while ( !wire.available() );
+    return wire.read();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+********************************** Public Methods.
+*/
+
+
+
+
+
+
+
 PimoroniDualMatrice::PimoroniDualMatrice(/* args */)
 {
 }
@@ -21,6 +108,21 @@ PimoroniDualMatrice::~PimoroniDualMatrice()
 /// @brief The initiator for the class.  Turns on i2c and resets the chip.
 /// @param i2cAddress The i2c address of the chip.
 void PimoroniDualMatrice::begin( uint8_t i2cAddress ) {
+
+    // store my i2c address for later.
+    _i2cAddress = i2cAddress;
+
+    // bring up the wire library.
+    wire.begin();
+
+    // later is now, so send a reset to the chip.
+    softwareReset();
+
+    // update DM to turn on both matrices.
+    matrixDisplayModeSet ( 0b11 );
+
+    // at this point, everything is done, so return to caller.
+    return;
 
 }
 

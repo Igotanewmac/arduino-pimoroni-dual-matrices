@@ -21,7 +21,15 @@ private:
     /// @brief The i2c address of the chip.
     uint8_t _i2cAddress;
 
+    /// @brief Write a single byte to the chip.
+    /// @param address The address to write to.
+    /// @param data The byte to write to the give address.
+    void _chipByteSet( uint8_t address , uint8_t data );
 
+    /// @brief Gets a byte from the chip.
+    /// @param address The address to retereive.
+    /// @return The data at that address, as a uint8_t.
+    uint8_t _chipByteGet( uint8_t address );
 
 
 
