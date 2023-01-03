@@ -137,15 +137,25 @@ void PimoroniDualMatrice::begin( uint8_t i2cAddress ) {
 /// @param state The state of the pixel.  1 for on, 0 for off.
 void PimoroniDualMatrice::pixelSet( uint8_t matrix , uint8_t xpos , uint8_t ypos , uint8_t state ) {
 
+    // set a pixel to on or off.
+    if ( state ) {
+        _pixelStateBuffer[ matrix ][ xpos ] |= ( 0b1 << ypos );
+    }
+    else {
+        _pixelStateBuffer[ matrix ][ xpos ] &= ~( 0b1 << ypos );
+    }
+    // add done, return to caller.
+    return;
 }
 
-/// @brief Get a picels state as a uint8_t.
+/// @brief Get a pixels state as a uint8_t.
 /// @param matrix The matrix in which the pixel resides.  0 for left, 1 for right.
 /// @param xpos The x position of the pixel, starting at the top left.
 /// @param ypos The y position of the pixel, starting at the top left.
 /// @return The state of the pixel as a uint8_t.
 uint8_t PimoroniDualMatrice::pixelGet( uint8_t matrix , uint8_t xpos , uint8_t ypos ) {
-    return 0;
+    // return the pixel state.
+    return ( ( _pixelStateBuffer[ matrix ][ xpos ] >> ypos ) & 0b1 );
 }
 
 

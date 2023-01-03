@@ -63,6 +63,15 @@ private:
 
 
 
+    // pixel buffer writes!
+
+    void _pixelBufferWriteToChip( uint8_t matrix );
+
+
+
+
+
+
 public:
     
     /// @brief Class Constructor.
