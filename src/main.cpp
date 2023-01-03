@@ -21,8 +21,8 @@ PimoroniDualMatrice mydualmatrice;
 
 uint8_t xposlb = 0;
 uint8_t yposlb = 0;
-uint8_t xposrb = 0;
-uint8_t yposrb = 0;
+uint8_t xposrb = 4;
+uint8_t yposrb = 4;
 
 
 
@@ -34,25 +34,6 @@ void setup() {
   
   
   mydualmatrice.begin( PIMORONIDUALMATRICEI2CADDRESS );
-  
-
-
-
-
-
-
-  mydualmatrice.pixelSet( 0 , 0 , 0 , 1 );
-  mydualmatrice.pixelSet( 0 , 1 , 1 , 1 );
-  mydualmatrice.pixelSet( 0 , 2 , 0 , 1 );
-  mydualmatrice.pixelSet( 0 , 2 , 1 , 1 );
-  
-  
-  
-  mydualmatrice.pixelSet( 1 , 0 , 0 , 1 );
-  mydualmatrice.pixelSet( 1 , 1 , 1 , 1 );
-  mydualmatrice.pixelSet( 1 , 2 , 0 , 1 );
-  mydualmatrice.pixelSet( 1 , 2 , 1 , 1 );
-  
 
 
   mydualmatrice.updateDisplay();
@@ -86,14 +67,14 @@ void loop() {
 
 
   // turn off the old pixel
-  mydualmatrice.pixelSet( 1 , xposrb , yposrb , 0 );
+  mydualmatrice.pixelSet( 1 , xposrb - 1 , yposrb , 0 );
 
   // move on....
-  xposrb++;
+  xposrb--;
   
-  if ( xposrb == 5 ) {
+  if ( xposrb == 0 ) {
     yposrb++;
-    xposrb = 0;
+    xposrb = 6;
   }
 
   if ( yposrb == 7 ) {
@@ -101,7 +82,7 @@ void loop() {
   }
 
   // now set the new pixel on...
-  mydualmatrice.pixelSet( 1 , xposrb , yposrb , 1 );
+  mydualmatrice.pixelSet( 1 , xposrb - 1 , yposrb , 1 );
 
   
   

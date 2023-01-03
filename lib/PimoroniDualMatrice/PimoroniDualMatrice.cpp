@@ -95,61 +95,61 @@ void PimoroniDualMatrice::_pixelBufferWriteToChipBankRight() {
     wire.write( 0x01 );
     
     tempbyte = 0;
-    tempbyte |= pixelGet( 1 , 0 , 0 );
-    tempbyte |= pixelGet( 1 , 1 , 0 ) << 1;
-    tempbyte |= pixelGet( 1 , 2 , 0 ) << 2;
-    tempbyte |= pixelGet( 1 , 3 , 0 ) << 3;
-    tempbyte |= pixelGet( 1 , 4 , 0 ) << 4;    
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & 0b1 ) << 0 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 1 ] & 0b1 ) << 1 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 2 ] & 0b1 ) << 2 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 3 ] & 0b1 ) << 3 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 4 ] & 0b1 ) << 4 );
     wire.write( tempbyte );
 
     tempbyte = 0;
-    tempbyte |= pixelGet( 1 , 0 , 1 );
-    tempbyte |= pixelGet( 1 , 1 , 1 ) << 1;
-    tempbyte |= pixelGet( 1 , 2 , 1 ) << 2;
-    tempbyte |= pixelGet( 1 , 3 , 1 ) << 3;
-    tempbyte |= pixelGet( 1 , 4 , 1 ) << 4;    
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & ( 0b1 << 1 ) ) >> 1 );
+    tempbyte |=   ( _pixelStateBuffer[ 1 ][ 1 ] & ( 0b1 << 1 ) );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 2 ] & ( 0b1 << 1 ) ) << 1 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 3 ] & ( 0b1 << 1 ) ) << 2  );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 4 ] & ( 0b1 << 1 ) ) << 3  );
     wire.write( tempbyte );
-
+    
     tempbyte = 0;
-    tempbyte |= pixelGet( 1 , 0 , 2 );
-    tempbyte |= pixelGet( 1 , 1 , 2 ) << 1;
-    tempbyte |= pixelGet( 1 , 2 , 2 ) << 2;
-    tempbyte |= pixelGet( 1 , 3 , 2 ) << 3;
-    tempbyte |= pixelGet( 1 , 4 , 2 ) << 4;    
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & ( 0b1 << 2 ) ) >> 2 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 1 ] & ( 0b1 << 2 ) ) >> 1 );
+    tempbyte |=   ( _pixelStateBuffer[ 1 ][ 2 ] & ( 0b1 << 2 ) );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 3 ] & ( 0b1 << 2 ) ) << 1  );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 4 ] & ( 0b1 << 2 ) ) << 2  );
     wire.write( tempbyte );
-
+    
     tempbyte = 0;
-    tempbyte |= pixelGet( 1 , 0 , 3 );
-    tempbyte |= pixelGet( 1 , 1 , 3 ) << 1;
-    tempbyte |= pixelGet( 1 , 2 , 3 ) << 2;
-    tempbyte |= pixelGet( 1 , 3 , 3 ) << 3;
-    tempbyte |= pixelGet( 1 , 4 , 3 ) << 4;    
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & ( 0b1 << 3 ) ) >> 3 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 1 ] & ( 0b1 << 3 ) ) >> 2 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 2 ] & ( 0b1 << 3 ) ) >> 1 );
+    tempbyte |=   ( _pixelStateBuffer[ 1 ][ 3 ] & ( 0b1 << 3 ) );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 4 ] & ( 0b1 << 3 ) ) << 1  );
     wire.write( tempbyte );
-
+    
     tempbyte = 0;
-    tempbyte |= pixelGet( 1 , 0 , 4 );
-    tempbyte |= pixelGet( 1 , 1 , 4 ) << 1;
-    tempbyte |= pixelGet( 1 , 2 , 4 ) << 2;
-    tempbyte |= pixelGet( 1 , 3 , 4 ) << 3;
-    tempbyte |= pixelGet( 1 , 4 , 4 ) << 4;    
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & ( 0b1 << 4 ) ) >> 4 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 1 ] & ( 0b1 << 4 ) ) >> 3 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 2 ] & ( 0b1 << 4 ) ) >> 2 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 3 ] & ( 0b1 << 4 ) ) >> 1  );
+    tempbyte |=   ( _pixelStateBuffer[ 1 ][ 4 ] & ( 0b1 << 4 ) );
     wire.write( tempbyte );
-
+    
     tempbyte = 0;
-    tempbyte |= pixelGet( 1 , 0 , 5 );
-    tempbyte |= pixelGet( 1 , 1 , 5 ) << 1;
-    tempbyte |= pixelGet( 1 , 2 , 5 ) << 2;
-    tempbyte |= pixelGet( 1 , 3 , 5 ) << 3;
-    tempbyte |= pixelGet( 1 , 4 , 5 ) << 4;    
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & ( 0b1 << 5 ) ) >> 5 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 1 ] & ( 0b1 << 5 ) ) >> 4 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 2 ] & ( 0b1 << 5 ) ) >> 3 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 3 ] & ( 0b1 << 5 ) ) >> 2 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 4 ] & ( 0b1 << 5 ) ) >> 1 );
     wire.write( tempbyte );
-
+    
     tempbyte = 0;
-    tempbyte |= pixelGet( 1 , 0 , 6 );
-    tempbyte |= pixelGet( 1 , 1 , 6 ) << 1;
-    tempbyte |= pixelGet( 1 , 2 , 6 ) << 2;
-    tempbyte |= pixelGet( 1 , 3 , 6 ) << 3;
-    tempbyte |= pixelGet( 1 , 4 , 6 ) << 4;    
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & ( 0b1 << 6 ) ) >> 6 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 1 ] & ( 0b1 << 6 ) ) >> 5 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 2 ] & ( 0b1 << 6 ) ) >> 4 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 3 ] & ( 0b1 << 6 ) ) >> 3 );
+    tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 4 ] & ( 0b1 << 6 ) ) >> 2 );
     wire.write( tempbyte );
-
+    
     wire.endTransmission();
 
     return;
