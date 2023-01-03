@@ -5,7 +5,7 @@
 
 
 
-
+#include <Arduino.h>
 
 
 
@@ -36,22 +36,7 @@ void PimoroniDualMatrice::_chipByteSet( uint8_t address , uint8_t data ) {
 
 
 
-/// @brief Gets a byte from the chip.
-/// @param address The address to retereive.
-/// @return The data at that address, as a uint8_t.
-uint8_t PimoroniDualMatrice::_chipByteGet( uint8_t address ) {
 
-    // send over the address
-    wire.beginTransmission( _i2cAddress );
-    wire.write( address );
-    wire.endTransmission();
-
-    // Request a byte back...
-    wire.requestFrom( _i2cAddress , (uint8_t)(1) );
-    while ( !wire.available() );
-    return wire.read();
-
-}
 
 
 
@@ -121,6 +106,8 @@ void PimoroniDualMatrice::begin( uint8_t i2cAddress ) {
     // update DM to turn on both matrices.
     matrixDisplayModeSet ( 0b11 );
 
+    // softwareStateTurnOn();
+
     // at this point, everything is done, so return to caller.
     return;
 
@@ -139,18 +126,22 @@ void PimoroniDualMatrice::begin( uint8_t i2cAddress ) {
 
 /// @brief Turns the chip software off, and stops updating the display.
 void PimoroniDualMatrice::softwareStateTurnOff() {
-
+    _registercache_config |= 0b10000000;
+    _chipByteSet( IS31FL3730_REG_CONFIG , _registercache_config );
+    return;
 }
 
 /// @brief Turns the chip software on, and starts updating the display.
 void PimoroniDualMatrice::softwareStateTurnOn() {
-
+    _registercache_config &= 0b01111111;
+    _chipByteSet( IS31FL3730_REG_CONFIG , _registercache_config );
+   return;
 }
 
 /// @brief Gets the current software state from the chip.
 /// @return The current software state as a uint8_t. 0 = normal operation, 1 = shutdown.
 uint8_t PimoroniDualMatrice::softwareStateGet() {
-    return 0;
+    return ( ( _registercache_config & 0b10000000 ) >> 7 );
 }
 
 
@@ -159,13 +150,16 @@ uint8_t PimoroniDualMatrice::softwareStateGet() {
 /// @brief Sets the matris display mode.
 /// @param state The matrix display mode. 0b00 1 only, 0b01 2 only, 0b11 1 and 2.
 void PimoroniDualMatrice::matrixDisplayModeSet( uint8_t state ) {
-
+    _registercache_config &= 0b11100111;
+    _registercache_config |= ( ( state & 0b00000011 ) << 3 );
+   _chipByteSet( IS31FL3730_REG_CONFIG , _registercache_config );
+   return;
 }
 
 /// @brief Gets the matrix display mode.
 /// @return The matrix display mode, as a uint8_t. 0b00 1 only, 0b01 2 only, 0b11 1 and 2.
 uint8_t PimoroniDualMatrice::matrixDisplayModeGet() {
-    return 0;
+    return ( ( _registercache_config & 0b00011000 ) >> 3 );
 }
 
 
@@ -181,13 +175,16 @@ uint8_t PimoroniDualMatrice::matrixDisplayModeGet() {
 /// @brief Set the type of matrix connected.
 /// @param state The type of matrix connected. 0b00 = 8x8, 0b01 = 7x9 , 0b10 = 6x10 , 0b11 5x11
 void PimoroniDualMatrice::matrixModeSet( uint8_t state ) {
-
+    _registercache_config &= 0b11111000;
+    _registercache_config |= ( state & 0b00000111 );
+    _chipByteSet( IS31FL3730_REG_CONFIG , _registercache_config );
+    return;
 }
 
 /// @brief Gets the type of matrix connected.
 /// @return The type of matrix connected as a uint8_t. 0b00 = 8x8, 0b01 = 7x9 , 0b10 = 6x10 , 0b11 5x11
 uint8_t PimoroniDualMatrice::matrixModeGet() {
-    return 0;
+    return ( _registercache_config & 0b00000111 );
 }
 
 
@@ -198,7 +195,7 @@ uint8_t PimoroniDualMatrice::matrixModeGet() {
 
 /// @brief Call to tell the chip to update the display.
 void PimoroniDualMatrice::updateDisplay() {
-
+    _chipByteSet( IS31FL3730_REG_UPDATE , 0x00 );
 }
 
 
@@ -216,13 +213,15 @@ void PimoroniDualMatrice::updateDisplay() {
 /// @brief Set the electrical current output for the display.
 /// @param state The electrical current to use for the display. See enum definitions under DUALMATRICECURRENT
 void PimoroniDualMatrice::matrixCurrentSet( uint8_t state ) {
-
+    _registercache_lighting &= 0b11111000;
+    _registercache_lighting |= ( state & 0b00000111 );
+    _chipByteSet( IS31FL3730_REG_LIGHTING , _registercache_lighting );
 }
 
 /// @brief Get the electrical current output for the display.
 /// @return The electrical current to use for the display. See enum definitions under DUALMATRICECURRENT
 uint8_t PimoroniDualMatrice::matrixCurrentGet() {
-    return 0;
+    return ( _registercache_lighting & 0b00000111 );
 }
 
 
@@ -234,13 +233,14 @@ uint8_t PimoroniDualMatrice::matrixCurrentGet() {
 /// @brief Set the pwm value for the display
 /// @param state The pwm value to set. 0-128.
 void PimoroniDualMatrice::displaypwmSet( uint8_t state ) {
-
+    _registercache_pwm = state;
+    _chipByteSet( IS31FL3730_REG_PWM , _registercache_pwm );
 }
 
 /// @brief Get the pwm value for the display.
 /// @return The pwm value to set as a uint8_t. 0-128. 
 uint8_t PimoroniDualMatrice::displaypwmGet() {
-    return 0;
+    return _registercache_pwm;
 }
 
 
@@ -249,7 +249,7 @@ uint8_t PimoroniDualMatrice::displaypwmGet() {
 
 /// @brief request the chip reset itself to default values.
 void PimoroniDualMatrice::softwareReset() {
-
+    _chipByteSet( IS31FL3730_REG_RESET , 0x00 );
 }
 
 

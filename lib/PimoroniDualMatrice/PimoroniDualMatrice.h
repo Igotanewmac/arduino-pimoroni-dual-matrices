@@ -13,6 +13,24 @@
 
 
 
+
+
+#define IS31FL3730_REG_CONFIG 0x00
+#define IS31FL3730_REG_MATRIX_ONE 0x01
+#define IS31FL3730_REG_MATRIX_TWO 0x0E
+#define IS31FL3730_REG_UPDATE 0x0C
+#define IS31FL3730_REG_LIGHTING 0x0D
+#define IS31FL3730_REG_PWM 0x19
+#define IS31FL3730_REG_RESET 0xFF
+
+
+
+
+
+
+
+
+
 class PimoroniDualMatrice
 {
 
@@ -26,10 +44,17 @@ private:
     /// @param data The byte to write to the give address.
     void _chipByteSet( uint8_t address , uint8_t data );
 
-    /// @brief Gets a byte from the chip.
-    /// @param address The address to retereive.
-    /// @return The data at that address, as a uint8_t.
-    uint8_t _chipByteGet( uint8_t address );
+    /// @brief cache for control register
+    uint8_t _registercache_config = 0b00011000;
+
+    /// @brief cache for lighting effect register
+    uint8_t _registercache_lighting = 0b00000000;
+
+    /// @brief cache for pwm register
+    uint8_t _registercache_pwm = 0b10000000;
+
+
+
 
 
 
@@ -47,7 +72,7 @@ public:
     void begin( uint8_t i2cAddress );
 
 
-
+    
 
 
 

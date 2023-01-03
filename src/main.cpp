@@ -26,26 +26,30 @@ void setup() {
   mydualmatrice.begin( PIMORONIDUALMATRICEI2CADDRESS );
   
   
-  
+  /*
   wire.begin();
+  */
 
+  /*
   // config register
   wire.beginTransmission( 0x61 );
   wire.write( 0x00 );
   wire.write( 0b00011000 );
   wire.endTransmission();
-  
+  */
+
   // lighting effect register
   wire.beginTransmission( 0x61 );
   wire.write( 0x0D );
   wire.write( 0b00000110 );
   wire.endTransmission();
-
+  
   // pwm register
   wire.beginTransmission( 0x61 );
   wire.write( 0x19 );
   wire.write( 32 );
   wire.endTransmission();
+  
 
   // set bank one on
   wire.beginTransmission( 0x61 );
