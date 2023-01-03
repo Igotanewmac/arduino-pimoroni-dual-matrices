@@ -43,12 +43,117 @@ void PimoroniDualMatrice::_chipByteSet( uint8_t address , uint8_t data ) {
 
 
 
+/// @brief Write the pixel buffer to the chip.
+/// @param matrix The matrix to update. 0 is left, 1 is right.
+void PimoroniDualMatrice::_pixelBufferWriteToChip( uint8_t matrix ) {
+
+
+    // split out into two routines because the board is wired funny
+    if ( matrix == 0 ) {
+        _pixelBufferWriteToChipBankLeft();
+    }
+    else {
+        _pixelBufferWriteToChipBankRight();
+    }
+
+}
+
+
+
+
+void PimoroniDualMatrice::_pixelBufferWriteToChipBankLeft() {
+
+    // spam out the pixel buffer to bank 0x0E
+
+    wire.beginTransmission( _i2cAddress );
+    wire.write( 0x0E );
+    wire.write( _pixelStateBuffer[ 0 ][ 0 ] );
+    wire.write( _pixelStateBuffer[ 0 ][ 1 ] );
+    wire.write( _pixelStateBuffer[ 0 ][ 2 ] );
+    wire.write( _pixelStateBuffer[ 0 ][ 3 ] );
+    wire.write( _pixelStateBuffer[ 0 ][ 4 ] );
+    wire.endTransmission();
+
+    return;
+
+}
 
 
 
 
 
 
+
+
+void PimoroniDualMatrice::_pixelBufferWriteToChipBankRight() {
+
+    // spam out the pixel buffer to bank 0x01
+
+    uint8_t tempbyte = 0x00;
+
+    wire.beginTransmission( _i2cAddress );
+    wire.write( 0x01 );
+    
+    tempbyte = 0;
+    tempbyte |= pixelGet( 1 , 0 , 0 );
+    tempbyte |= pixelGet( 1 , 1 , 0 ) << 1;
+    tempbyte |= pixelGet( 1 , 2 , 0 ) << 2;
+    tempbyte |= pixelGet( 1 , 3 , 0 ) << 3;
+    tempbyte |= pixelGet( 1 , 4 , 0 ) << 4;    
+    wire.write( tempbyte );
+
+    tempbyte = 0;
+    tempbyte |= pixelGet( 1 , 0 , 1 );
+    tempbyte |= pixelGet( 1 , 1 , 1 ) << 1;
+    tempbyte |= pixelGet( 1 , 2 , 1 ) << 2;
+    tempbyte |= pixelGet( 1 , 3 , 1 ) << 3;
+    tempbyte |= pixelGet( 1 , 4 , 1 ) << 4;    
+    wire.write( tempbyte );
+
+    tempbyte = 0;
+    tempbyte |= pixelGet( 1 , 0 , 2 );
+    tempbyte |= pixelGet( 1 , 1 , 2 ) << 1;
+    tempbyte |= pixelGet( 1 , 2 , 2 ) << 2;
+    tempbyte |= pixelGet( 1 , 3 , 2 ) << 3;
+    tempbyte |= pixelGet( 1 , 4 , 2 ) << 4;    
+    wire.write( tempbyte );
+
+    tempbyte = 0;
+    tempbyte |= pixelGet( 1 , 0 , 3 );
+    tempbyte |= pixelGet( 1 , 1 , 3 ) << 1;
+    tempbyte |= pixelGet( 1 , 2 , 3 ) << 2;
+    tempbyte |= pixelGet( 1 , 3 , 3 ) << 3;
+    tempbyte |= pixelGet( 1 , 4 , 3 ) << 4;    
+    wire.write( tempbyte );
+
+    tempbyte = 0;
+    tempbyte |= pixelGet( 1 , 0 , 4 );
+    tempbyte |= pixelGet( 1 , 1 , 4 ) << 1;
+    tempbyte |= pixelGet( 1 , 2 , 4 ) << 2;
+    tempbyte |= pixelGet( 1 , 3 , 4 ) << 3;
+    tempbyte |= pixelGet( 1 , 4 , 4 ) << 4;    
+    wire.write( tempbyte );
+
+    tempbyte = 0;
+    tempbyte |= pixelGet( 1 , 0 , 5 );
+    tempbyte |= pixelGet( 1 , 1 , 5 ) << 1;
+    tempbyte |= pixelGet( 1 , 2 , 5 ) << 2;
+    tempbyte |= pixelGet( 1 , 3 , 5 ) << 3;
+    tempbyte |= pixelGet( 1 , 4 , 5 ) << 4;    
+    wire.write( tempbyte );
+
+    tempbyte = 0;
+    tempbyte |= pixelGet( 1 , 0 , 6 );
+    tempbyte |= pixelGet( 1 , 1 , 6 ) << 1;
+    tempbyte |= pixelGet( 1 , 2 , 6 ) << 2;
+    tempbyte |= pixelGet( 1 , 3 , 6 ) << 3;
+    tempbyte |= pixelGet( 1 , 4 , 6 ) << 4;    
+    wire.write( tempbyte );
+
+    wire.endTransmission();
+
+    return;
+}
 
 
 
@@ -139,14 +244,16 @@ void PimoroniDualMatrice::pixelSet( uint8_t matrix , uint8_t xpos , uint8_t ypos
 
     // set a pixel to on or off.
     if ( state ) {
-        _pixelStateBuffer[ matrix ][ xpos ] |= ( 0b1 << ypos );
+        _pixelStateBuffer[ matrix ][ xpos ] |= ( 0b00000001 << ypos );
     }
     else {
-        _pixelStateBuffer[ matrix ][ xpos ] &= ~( 0b1 << ypos );
+        _pixelStateBuffer[ matrix ][ xpos ] &= ~( 0b00000001 << ypos );
     }
     // add done, return to caller.
     return;
 }
+
+
 
 /// @brief Get a pixels state as a uint8_t.
 /// @param matrix The matrix in which the pixel resides.  0 for left, 1 for right.
@@ -155,12 +262,8 @@ void PimoroniDualMatrice::pixelSet( uint8_t matrix , uint8_t xpos , uint8_t ypos
 /// @return The state of the pixel as a uint8_t.
 uint8_t PimoroniDualMatrice::pixelGet( uint8_t matrix , uint8_t xpos , uint8_t ypos ) {
     // return the pixel state.
-    return ( ( _pixelStateBuffer[ matrix ][ xpos ] >> ypos ) & 0b1 );
+    return ( ( _pixelStateBuffer[ matrix ][ xpos ] >> ypos ) & 0b00000001 );
 }
-
-
-
-
 
 
 
@@ -260,6 +363,8 @@ uint8_t PimoroniDualMatrice::matrixModeGet() {
 
 /// @brief Call to tell the chip to update the display.
 void PimoroniDualMatrice::updateDisplay() {
+    _pixelBufferWriteToChip( 0 );
+    _pixelBufferWriteToChip( 1 );
     _chipByteSet( IS31FL3730_REG_UPDATE , 0x00 );
 }
 

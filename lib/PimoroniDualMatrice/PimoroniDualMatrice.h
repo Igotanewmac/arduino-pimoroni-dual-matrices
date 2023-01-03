@@ -65,9 +65,15 @@ private:
 
     // pixel buffer writes!
 
+    /// @brief Write the pixel buffer to the chip.
+    /// @param matrix The matrix to update. 0 is left, 1 is right.
     void _pixelBufferWriteToChip( uint8_t matrix );
 
+    /// @brief Utility function for left bank translation.
+    void _pixelBufferWriteToChipBankLeft();
 
+    /// @brief utility function for right bank translation.
+    void _pixelBufferWriteToChipBankRight();
 
 
 
