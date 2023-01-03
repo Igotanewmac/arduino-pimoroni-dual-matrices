@@ -26,6 +26,114 @@
 
 
 
+#define N01 0b00000
+#define N02 0b01110
+#define N03 0b01010
+#define N04 0b01010
+#define N05 0b01010
+#define N06 0b01110
+#define N07 0b00000
+
+
+#define N11 0b00000
+#define N12 0b01100
+#define N13 0b00100
+#define N14 0b00100
+#define N15 0b00100
+#define N16 0b01110
+#define N17 0b00000
+
+
+#define N21 0b00000
+#define N22 0b01110
+#define N23 0b00010
+#define N24 0b00100
+#define N25 0b01000
+#define N26 0b01110
+#define N27 0b00000
+
+
+#define N31 0b00000
+#define N32 0b01110
+#define N33 0b00010
+#define N34 0b00110
+#define N35 0b00010
+#define N36 0b01110
+#define N37 0b00000
+
+
+
+#define N41 0b00000
+#define N42 0b00010
+#define N43 0b00110
+#define N44 0b01010
+#define N45 0b01110
+#define N46 0b00010
+#define N47 0b00000
+
+
+#define N51 0b00000
+#define N52 0b01110
+#define N53 0b01000
+#define N54 0b01100
+#define N55 0b00010
+#define N56 0b01100
+#define N57 0b00000
+
+
+
+#define N61 0b00000
+#define N62 0b01110
+#define N63 0b01000
+#define N64 0b01100
+#define N65 0b01010
+#define N66 0b01110
+#define N67 0b00000
+
+
+#define N71 0b00000
+#define N72 0b01110
+#define N73 0b00010
+#define N74 0b00100
+#define N75 0b01000
+#define N76 00.1000
+#define N77 0b00000
+
+
+#define N81 0b00000
+#define N82 0b01110
+#define N83 0b01010
+#define N84 0b01110
+#define N85 0b01010
+#define N86 0b01110
+#define N87 0b00000
+
+
+#define N91 0b00000
+#define N92 0b01110
+#define N93 0b01010
+#define N94 0b01110
+#define N95 0b00010
+#define N96 0b00100
+#define N97 0b00000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -120,7 +228,10 @@ public:
 
 
 
-
+    /// @brief Show a digit on the matrix
+    /// @param matrix The matrix to use. 0 for left, 1 for right.
+    /// @param digit The digit you wish to display.
+    void showDigit( uint8_t matrix , uint8_t digit );
 
 
 

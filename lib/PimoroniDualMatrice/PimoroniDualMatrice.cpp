@@ -274,6 +274,123 @@ uint8_t PimoroniDualMatrice::pixelGet( uint8_t matrix , uint8_t xpos , uint8_t y
 
 
 
+/// @brief Show a digit on the matrix
+/// @param matrix The matrix to use. 0 for left, 1 for right.
+/// @param digit The digit you wish to display.
+void PimoroniDualMatrice::showDigit( uint8_t matrix , uint8_t digit ) {
+
+
+    switch (digit)
+    {
+    case 0:
+        _pixelStateBuffer[ matrix ][0] = N01;
+        _pixelStateBuffer[ matrix ][1] = N02;
+        _pixelStateBuffer[ matrix ][2] = N03;
+        _pixelStateBuffer[ matrix ][3] = N04;
+        _pixelStateBuffer[ matrix ][4] = N05;
+        _pixelStateBuffer[ matrix ][5] = N06;
+        _pixelStateBuffer[ matrix ][6] = N07;
+        break;
+    
+    case 1:
+        _pixelStateBuffer[ matrix ][0] = N11;
+        _pixelStateBuffer[ matrix ][1] = N12;
+        _pixelStateBuffer[ matrix ][2] = N13;
+        _pixelStateBuffer[ matrix ][3] = N14;
+        _pixelStateBuffer[ matrix ][4] = N15;
+        _pixelStateBuffer[ matrix ][5] = N16;
+        _pixelStateBuffer[ matrix ][6] = N17;
+        break;
+    
+    case 2:
+        _pixelStateBuffer[ matrix ][0] = N21;
+        _pixelStateBuffer[ matrix ][1] = N22;
+        _pixelStateBuffer[ matrix ][2] = N23;
+        _pixelStateBuffer[ matrix ][3] = N24;
+        _pixelStateBuffer[ matrix ][4] = N25;
+        _pixelStateBuffer[ matrix ][5] = N26;
+        _pixelStateBuffer[ matrix ][6] = N27;
+        break;
+    
+    case 3:
+        _pixelStateBuffer[ matrix ][0] = N31;
+        _pixelStateBuffer[ matrix ][1] = N32;
+        _pixelStateBuffer[ matrix ][2] = N33;
+        _pixelStateBuffer[ matrix ][3] = N34;
+        _pixelStateBuffer[ matrix ][4] = N35;
+        _pixelStateBuffer[ matrix ][5] = N36;
+        _pixelStateBuffer[ matrix ][6] = N37;
+        break;
+    
+    case 4:
+        _pixelStateBuffer[ matrix ][0] = N41;
+        _pixelStateBuffer[ matrix ][1] = N42;
+        _pixelStateBuffer[ matrix ][2] = N43;
+        _pixelStateBuffer[ matrix ][3] = N44;
+        _pixelStateBuffer[ matrix ][4] = N45;
+        _pixelStateBuffer[ matrix ][5] = N46;
+        _pixelStateBuffer[ matrix ][6] = N47;
+        break;
+    
+    case 5:
+        _pixelStateBuffer[ matrix ][0] = N51;
+        _pixelStateBuffer[ matrix ][1] = N52;
+        _pixelStateBuffer[ matrix ][2] = N53;
+        _pixelStateBuffer[ matrix ][3] = N54;
+        _pixelStateBuffer[ matrix ][4] = N55;
+        _pixelStateBuffer[ matrix ][5] = N56;
+        _pixelStateBuffer[ matrix ][6] = N57;
+        break;
+    
+    case 6:
+        _pixelStateBuffer[ matrix ][0] = N61;
+        _pixelStateBuffer[ matrix ][1] = N62;
+        _pixelStateBuffer[ matrix ][2] = N63;
+        _pixelStateBuffer[ matrix ][3] = N64;
+        _pixelStateBuffer[ matrix ][4] = N65;
+        _pixelStateBuffer[ matrix ][5] = N66;
+        _pixelStateBuffer[ matrix ][6] = N67;
+        break;
+    
+    case 7:
+        _pixelStateBuffer[ matrix ][0] = N71;
+        _pixelStateBuffer[ matrix ][1] = N72;
+        _pixelStateBuffer[ matrix ][2] = N73;
+        _pixelStateBuffer[ matrix ][3] = N74;
+        _pixelStateBuffer[ matrix ][4] = N75;
+        _pixelStateBuffer[ matrix ][5] = N76;
+        _pixelStateBuffer[ matrix ][6] = N77;
+        break;
+    
+    case 8:
+        _pixelStateBuffer[ matrix ][0] = N81;
+        _pixelStateBuffer[ matrix ][1] = N82;
+        _pixelStateBuffer[ matrix ][2] = N83;
+        _pixelStateBuffer[ matrix ][3] = N84;
+        _pixelStateBuffer[ matrix ][4] = N85;
+        _pixelStateBuffer[ matrix ][5] = N86;
+        _pixelStateBuffer[ matrix ][6] = N87;
+        break;
+    
+    case 9:
+        _pixelStateBuffer[ matrix ][0] = N91;
+        _pixelStateBuffer[ matrix ][1] = N92;
+        _pixelStateBuffer[ matrix ][2] = N93;
+        _pixelStateBuffer[ matrix ][3] = N94;
+        _pixelStateBuffer[ matrix ][4] = N95;
+        _pixelStateBuffer[ matrix ][5] = N96;
+        _pixelStateBuffer[ matrix ][6] = N97;
+        break;
+    
+    default:
+        break;
+    }
+
+
+
+
+
+}
 
 
 
