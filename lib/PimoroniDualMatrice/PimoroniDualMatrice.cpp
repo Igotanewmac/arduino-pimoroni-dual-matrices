@@ -280,115 +280,159 @@ uint8_t PimoroniDualMatrice::pixelGet( uint8_t matrix , uint8_t xpos , uint8_t y
 void PimoroniDualMatrice::showDigit( uint8_t matrix , uint8_t digit ) {
 
 
-    switch (digit)
+    switch ( digit )
     {
-    case 0:
-        _pixelStateBuffer[ matrix ][0] = N01;
-        _pixelStateBuffer[ matrix ][1] = N02;
-        _pixelStateBuffer[ matrix ][2] = N03;
-        _pixelStateBuffer[ matrix ][3] = N04;
-        _pixelStateBuffer[ matrix ][4] = N05;
-        _pixelStateBuffer[ matrix ][5] = N06;
-        _pixelStateBuffer[ matrix ][6] = N07;
+    
+    // { 0x3E, 0x51, 0x49, 0x45, 0x3E },  // 30  48  0
+    case 0x00:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x3E;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x51;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x45;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x3E;
         break;
     
-    case 1:
-        _pixelStateBuffer[ matrix ][0] = N11;
-        _pixelStateBuffer[ matrix ][1] = N12;
-        _pixelStateBuffer[ matrix ][2] = N13;
-        _pixelStateBuffer[ matrix ][3] = N14;
-        _pixelStateBuffer[ matrix ][4] = N15;
-        _pixelStateBuffer[ matrix ][5] = N16;
-        _pixelStateBuffer[ matrix ][6] = N17;
+    // { 0x00, 0x42, 0x7F, 0x40, 0x00 },  // 31  49  1
+	case 0x01:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x00;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x42;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x7F;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x40;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x00;
         break;
     
-    case 2:
-        _pixelStateBuffer[ matrix ][0] = N21;
-        _pixelStateBuffer[ matrix ][1] = N22;
-        _pixelStateBuffer[ matrix ][2] = N23;
-        _pixelStateBuffer[ matrix ][3] = N24;
-        _pixelStateBuffer[ matrix ][4] = N25;
-        _pixelStateBuffer[ matrix ][5] = N26;
-        _pixelStateBuffer[ matrix ][6] = N27;
+    // { 0x42, 0x61, 0x51, 0x49, 0x46 },  // 32  50  2
+	case 0x02:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x42;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x61;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x51;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x46;
         break;
     
-    case 3:
-        _pixelStateBuffer[ matrix ][0] = N31;
-        _pixelStateBuffer[ matrix ][1] = N32;
-        _pixelStateBuffer[ matrix ][2] = N33;
-        _pixelStateBuffer[ matrix ][3] = N34;
-        _pixelStateBuffer[ matrix ][4] = N35;
-        _pixelStateBuffer[ matrix ][5] = N36;
-        _pixelStateBuffer[ matrix ][6] = N37;
+    // { 0x21, 0x41, 0x45, 0x4B, 0x31 },  // 33  51  3
+	case 0x03:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x21;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x41;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x45;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x4B;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x31;
         break;
     
-    case 4:
-        _pixelStateBuffer[ matrix ][0] = N41;
-        _pixelStateBuffer[ matrix ][1] = N42;
-        _pixelStateBuffer[ matrix ][2] = N43;
-        _pixelStateBuffer[ matrix ][3] = N44;
-        _pixelStateBuffer[ matrix ][4] = N45;
-        _pixelStateBuffer[ matrix ][5] = N46;
-        _pixelStateBuffer[ matrix ][6] = N47;
+    // { 0x18, 0x14, 0x12, 0x7F, 0x10 },  // 34  52  4
+	case 0x04:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x18;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x14;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x12;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x7F;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x10;
         break;
     
-    case 5:
-        _pixelStateBuffer[ matrix ][0] = N51;
-        _pixelStateBuffer[ matrix ][1] = N52;
-        _pixelStateBuffer[ matrix ][2] = N53;
-        _pixelStateBuffer[ matrix ][3] = N54;
-        _pixelStateBuffer[ matrix ][4] = N55;
-        _pixelStateBuffer[ matrix ][5] = N56;
-        _pixelStateBuffer[ matrix ][6] = N57;
+    // { 0x27, 0x45, 0x45, 0x45, 0x39 },  // 35  53  5
+	case 0x05:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x27;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x45;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x45;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x45;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x39;
         break;
     
-    case 6:
-        _pixelStateBuffer[ matrix ][0] = N61;
-        _pixelStateBuffer[ matrix ][1] = N62;
-        _pixelStateBuffer[ matrix ][2] = N63;
-        _pixelStateBuffer[ matrix ][3] = N64;
-        _pixelStateBuffer[ matrix ][4] = N65;
-        _pixelStateBuffer[ matrix ][5] = N66;
-        _pixelStateBuffer[ matrix ][6] = N67;
+    // { 0x3C, 0x4A, 0x49, 0x49, 0x30 },  // 36  54  6
+	case 0x06:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x3C;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x4A;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x30;
         break;
     
-    case 7:
-        _pixelStateBuffer[ matrix ][0] = N71;
-        _pixelStateBuffer[ matrix ][1] = N72;
-        _pixelStateBuffer[ matrix ][2] = N73;
-        _pixelStateBuffer[ matrix ][3] = N74;
-        _pixelStateBuffer[ matrix ][4] = N75;
-        _pixelStateBuffer[ matrix ][5] = N76;
-        _pixelStateBuffer[ matrix ][6] = N77;
+    // { 0x01, 0x01, 0x71, 0x0D, 0x03 },  // 37  55  7
+	case 0x07:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x01;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x01;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x71;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x0D;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x03;
         break;
     
-    case 8:
-        _pixelStateBuffer[ matrix ][0] = N81;
-        _pixelStateBuffer[ matrix ][1] = N82;
-        _pixelStateBuffer[ matrix ][2] = N83;
-        _pixelStateBuffer[ matrix ][3] = N84;
-        _pixelStateBuffer[ matrix ][4] = N85;
-        _pixelStateBuffer[ matrix ][5] = N86;
-        _pixelStateBuffer[ matrix ][6] = N87;
+    // { 0x36, 0x49, 0x49, 0x49, 0x36 },  // 38  56  8
+	case 0x08:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x36;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x36;
         break;
     
-    case 9:
-        _pixelStateBuffer[ matrix ][0] = N91;
-        _pixelStateBuffer[ matrix ][1] = N92;
-        _pixelStateBuffer[ matrix ][2] = N93;
-        _pixelStateBuffer[ matrix ][3] = N94;
-        _pixelStateBuffer[ matrix ][4] = N95;
-        _pixelStateBuffer[ matrix ][5] = N96;
-        _pixelStateBuffer[ matrix ][6] = N97;
+    // { 0x06, 0x49, 0x49, 0x29, 0x1E },  // 39  57  9
+	case 0x09:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x06;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x29;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x1E;
+        break;
+    
+    // { 0x7C, 0x12, 0x11, 0x12, 0x7C },  // 41  65  A
+	case 0x0A:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x7C;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x12;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x11;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x12;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x7C;
+        break;
+    
+    // { 0x7F, 0x49, 0x49, 0x49, 0x36 },  // 42  66  B
+	case 0x0B:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x7F;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x36;
+        break;
+    
+    // { 0x3E, 0x41, 0x41, 0x41, 0x22 },  // 43  67  C
+	case 0x0C:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x3E;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x41;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x41;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x41;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x22;
+        break;
+    
+    // { 0x7F, 0x41, 0x41, 0x22, 0x1C },  // 44  68  D
+	case 0x0D:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x7F;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x41;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x41;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x22;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x1C;
+        break;
+    
+    // { 0x7F, 0x49, 0x49, 0x49, 0x41 },  // 45  69  E
+	case 0x0E:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x7F;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x49;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x41;
+        break;
+    
+    // { 0x7F, 0x09, 0x09, 0x09, 0x01 },  // 46  70  F
+    case 0x0F:
+        _pixelStateBuffer[ matrix ][ 0 ] = 0x7F;
+        _pixelStateBuffer[ matrix ][ 1 ] = 0x09;
+        _pixelStateBuffer[ matrix ][ 2 ] = 0x09;
+        _pixelStateBuffer[ matrix ][ 3 ] = 0x09;
+        _pixelStateBuffer[ matrix ][ 4 ] = 0x01;
         break;
     
     default:
         break;
     }
 
-
-
-
+    
+	
 
 }
 
