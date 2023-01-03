@@ -38,18 +38,21 @@ void setup() {
   wire.endTransmission();
   */
 
+  /*
   // lighting effect register
   wire.beginTransmission( 0x61 );
   wire.write( 0x0D );
   wire.write( 0b00000110 );
   wire.endTransmission();
-  
+  */
+
+  /*
   // pwm register
   wire.beginTransmission( 0x61 );
   wire.write( 0x19 );
   wire.write( 32 );
   wire.endTransmission();
-  
+  */
 
   // set bank one on
   wire.beginTransmission( 0x61 );
@@ -64,6 +67,8 @@ void setup() {
   wire.write( 0b01100000 ); // 7
   wire.endTransmission();
   
+  
+  
   // set bank two on
   wire.beginTransmission( 0x61 );
   wire.write( 0x0E );
@@ -76,15 +81,20 @@ void setup() {
   wire.write( 0b11111111 ); // 6
   wire.write( 0b11111111 ); // 7
   wire.write( 0b10111111 ); // 8
-  
   wire.endTransmission();
   
 
+  
+  /*
   // column update register
   wire.beginTransmission( 0x61 );
   wire.write( 0x0C );
   wire.write( 0b00000000 );
   wire.endTransmission();
+  */
+
+  mydualmatrice.updateDisplay();
+
 
 }
 

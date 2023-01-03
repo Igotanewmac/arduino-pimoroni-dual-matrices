@@ -106,8 +106,9 @@ void PimoroniDualMatrice::begin( uint8_t i2cAddress ) {
     // update DM to turn on both matrices.
     matrixDisplayModeSet ( 0b11 );
 
-    // softwareStateTurnOn();
-
+    // turn the current down.
+    matrixCurrentSet( 0b1010 );
+    
     // at this point, everything is done, so return to caller.
     return;
 
@@ -213,8 +214,8 @@ void PimoroniDualMatrice::updateDisplay() {
 /// @brief Set the electrical current output for the display.
 /// @param state The electrical current to use for the display. See enum definitions under DUALMATRICECURRENT
 void PimoroniDualMatrice::matrixCurrentSet( uint8_t state ) {
-    _registercache_lighting &= 0b11111000;
-    _registercache_lighting |= ( state & 0b00000111 );
+    _registercache_lighting &= 0b11110000;
+    _registercache_lighting |= ( state & 0b00001111 );
     _chipByteSet( IS31FL3730_REG_LIGHTING , _registercache_lighting );
 }
 
