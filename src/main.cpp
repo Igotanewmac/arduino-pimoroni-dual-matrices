@@ -48,7 +48,7 @@ void loop() {
 
   mydualmatrice.showDigit( 0 , x );
   
-  mydualmatrice.showDigit( 1 , x );
+  mydualmatrice.showDigit( 1 , 15 - x );
   
   x++;
 
