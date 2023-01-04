@@ -26,7 +26,8 @@
 
 
 
-
+#define IS31FL3730_REG_MATRIX_LEFT 0x0E
+#define IS31FL3730_REG_MATRIX_RIGHT 0x01
 
 
 
@@ -121,7 +122,7 @@ public:
     /// @param state The state of the pixel.  1 for on, 0 for off.
     void pixelSet( uint8_t matrix , uint8_t xpos , uint8_t ypos , uint8_t state );
 
-    /// @brief Get a picels state as a uint8_t.
+    /// @brief Get a pixels state as a uint8_t.
     /// @param matrix The matrix in which the pixel resides.  0 for left, 1 for right.
     /// @param xpos The x position of the pixel, starting at the top left.
     /// @param ypos The y position of the pixel, starting at the top left.
@@ -161,10 +162,10 @@ public:
 
     // SSD Software Shutdown
 
-    /// @brief Turns the chip software off, and stops updating the display.
+    /// @brief Turns the on-chip software off, and stops updating the display.
     void softwareStateTurnOff();
 
-    /// @brief Turns the chip software on, and starts updating the display.
+    /// @brief Turns the on-chip software on, and starts updating the display.
     void softwareStateTurnOn();
 
     /// @brief Gets the current software state from the chip.
@@ -174,12 +175,12 @@ public:
 
     // DM Display Mode
 
-    /// @brief Sets the matris display mode.
-    /// @param state The matrix display mode. 0b00 1 only, 0b01 2 only, 0b11 1 and 2.
+    /// @brief Sets the matrix display mode.
+    /// @param state The matrix display mode. 0b00 left only, 0b01 right only, 0b11 left and right.
     void matrixDisplayModeSet( uint8_t state );
 
     /// @brief Gets the matrix display mode.
-    /// @return The matrix display mode, as a uint8_t. 0b00 1 only, 0b01 2 only, 0b11 1 and 2.
+    /// @return The matrix display mode, as a uint8_t. 0b00 left only, 0b01 right only, 0b11 left and right.
     uint8_t matrixDisplayModeGet();
 
 
@@ -206,7 +207,7 @@ public:
 
     // 0x0c Update Column Register.
 
-    /// @brief Call to tell the chip to update the display.
+    /// @brief Tell the chip to update the display from the internal pixel buffer.
     void updateDisplay();
 
 
@@ -222,11 +223,11 @@ public:
     // CS Current setting for display
 
     /// @brief Set the electrical current output for the display.
-    /// @param state The electrical current to use for the display. See enum definitions under DUALMATRICECURRENT
+    /// @param state The electrical current to use for the display.
     void matrixCurrentSet( uint8_t state );
 
     /// @brief Get the electrical current output for the display.
-    /// @return The electrical current to use for the display. See enum definitions under DUALMATRICECURRENT
+    /// @return The electrical current to use for the display.
     uint8_t matrixCurrentGet();
 
 

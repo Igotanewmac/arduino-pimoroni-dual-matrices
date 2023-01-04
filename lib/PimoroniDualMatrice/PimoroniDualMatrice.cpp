@@ -47,7 +47,6 @@ void PimoroniDualMatrice::_chipByteSet( uint8_t address , uint8_t data ) {
 /// @param matrix The matrix to update. 0 is left, 1 is right.
 void PimoroniDualMatrice::_pixelBufferWriteToChip( uint8_t matrix ) {
 
-
     // split out into two routines because the board is wired funny
     if ( matrix == 0 ) {
         _pixelBufferWriteToChipBankLeft();
@@ -66,7 +65,7 @@ void PimoroniDualMatrice::_pixelBufferWriteToChipBankLeft() {
     // spam out the pixel buffer to bank 0x0E
 
     wire.beginTransmission( _i2cAddress );
-    wire.write( 0x0E );
+    wire.write( IS31FL3730_REG_MATRIX_LEFT );
     wire.write( _pixelStateBuffer[ 0 ][ 0 ] );
     wire.write( _pixelStateBuffer[ 0 ][ 1 ] );
     wire.write( _pixelStateBuffer[ 0 ][ 2 ] );
@@ -92,7 +91,7 @@ void PimoroniDualMatrice::_pixelBufferWriteToChipBankRight() {
     uint8_t tempbyte = 0x00;
 
     wire.beginTransmission( _i2cAddress );
-    wire.write( 0x01 );
+    wire.write( IS31FL3730_REG_MATRIX_RIGHT );
     
     tempbyte = 0;
     tempbyte |= ( ( _pixelStateBuffer[ 1 ][ 0 ] & 0b1 ) << 0 );
@@ -244,10 +243,10 @@ void PimoroniDualMatrice::pixelSet( uint8_t matrix , uint8_t xpos , uint8_t ypos
 
     // set a pixel to on or off.
     if ( state ) {
-        _pixelStateBuffer[ matrix ][ xpos ] |= ( 0b00000001 << ypos );
+        _pixelStateBuffer[ matrix ][ xpos ] |= ( 0b1 << ypos );
     }
     else {
-        _pixelStateBuffer[ matrix ][ xpos ] &= ~( 0b00000001 << ypos );
+        _pixelStateBuffer[ matrix ][ xpos ] &= ~( 0b1 << ypos );
     }
     // add done, return to caller.
     return;
@@ -262,7 +261,7 @@ void PimoroniDualMatrice::pixelSet( uint8_t matrix , uint8_t xpos , uint8_t ypos
 /// @return The state of the pixel as a uint8_t.
 uint8_t PimoroniDualMatrice::pixelGet( uint8_t matrix , uint8_t xpos , uint8_t ypos ) {
     // return the pixel state.
-    return ( ( _pixelStateBuffer[ matrix ][ xpos ] >> ypos ) & 0b00000001 );
+    return ( ( _pixelStateBuffer[ matrix ][ xpos ] >> ypos ) & 0b1 );
 }
 
 
