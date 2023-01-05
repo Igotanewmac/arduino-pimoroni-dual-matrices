@@ -2,6 +2,9 @@
 
 Pimoroni i2c Dual Matrices Example.
 
+This example shows two counters.
+The left matrix will count up.  The right matrix will count down.
+
 */
 
 
@@ -29,7 +32,7 @@ PimoroniDualMatrice mydualmatrice;
 
 
 
-/// @brief Set up the chip..
+/// @brief Set up the chip.
 void setup() {
 
   // set up the chip one time on startup.

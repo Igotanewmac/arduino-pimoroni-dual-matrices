@@ -138,7 +138,7 @@ public:
 
     /// @brief Show a digit on the matrix
     /// @param matrix The matrix to use. 0 for left, 1 for right.
-    /// @param digit The digit you wish to display.
+    /// @param digit The digit you wish to display. 0x0-F.
     void showDigit( uint8_t matrix , uint8_t digit );
 
 
