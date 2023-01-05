@@ -132,7 +132,31 @@ public:
 
 
     /// @brief Clears the pixelbuffer
-    void clear();
+    /// @param matrix The matrix to clear. 0 for left, 1 for right.
+    void clear( uint8_t matrix );
+
+
+    /// @brief Fills the matrix with a single byte on all columns.
+    /// @param matrix The matrix to fill.  0 for left, 1 for right.
+    /// @param state The byte value to fill the columns with.
+    void fill( uint8_t matrix , uint8_t state );
+
+
+
+    /// @brief Set a column to a byte value.
+    /// @param matrix The matrix to update. 0 for legt, 1 for right.
+    /// @param xpos The xpos of the column to update. 0-4.
+    /// @param state The byte to write to this column.  LSB is top. MSB is bottom.  mask 0b01111111.
+    void columnSet( uint8_t matrix , uint8_t xpos , uint8_t state );
+
+    /// @brief Returns the column as a bute value.
+    /// @param matrix The matrix to read. 0 for left, 1 for right.
+    /// @param xpos The xpos of the column to read. 0-4.
+    /// @return The byte value of the column, as a uint8_t.  LSB is top. MSB is bottom.  mask 0b01111111.
+    uint8_t columnGet( uint8_t matrix , uint8_t xpos );
+
+
+
 
 
 

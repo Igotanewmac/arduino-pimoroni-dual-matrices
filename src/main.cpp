@@ -136,7 +136,8 @@ void moveSafelyTo( int8_t xposrelative , int8_t yposrelative ) {
 void loop() {
 
   // clear the old screen off
-  mydualmatrice.clear();
+  mydualmatrice.clear( 0 );
+  mydualmatrice.clear( 1 );
 
   // move the pixel in a random direction.
   moveSafelyTo( random( -1 , 2 ) , random( -1 , 2 ) );
