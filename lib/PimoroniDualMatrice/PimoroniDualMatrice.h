@@ -136,6 +136,11 @@ public:
     void clear( uint8_t matrix );
 
 
+    /// @brief clears both matrices.
+    void clearAll();
+
+
+
     /// @brief Fills the matrix with a single byte on all columns.
     /// @param matrix The matrix to fill.  0 for left, 1 for right.
     /// @param state The byte value to fill the columns with.

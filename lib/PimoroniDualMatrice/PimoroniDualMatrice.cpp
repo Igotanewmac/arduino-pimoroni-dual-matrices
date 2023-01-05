@@ -270,7 +270,17 @@ uint8_t PimoroniDualMatrice::pixelGet( uint8_t matrix , uint8_t xpos , uint8_t y
 /// @brief Clears the pixelbuffer
 /// @param matrix The matrix to clear. 0 for left, 1 for right.
 void PimoroniDualMatrice::clear( uint8_t matrix ) {
+    _pixelStateBuffer[ matrix ][ 0 ] = 0x00;
+    _pixelStateBuffer[ matrix ][ 1 ] = 0x00;
+    _pixelStateBuffer[ matrix ][ 2 ] = 0x00;
+    _pixelStateBuffer[ matrix ][ 3 ] = 0x00;
+    _pixelStateBuffer[ matrix ][ 4 ] = 0x00;
+}
 
+
+
+/// @brief clears both matrices.
+void PimoroniDualMatrice::clearAll() {
     _pixelStateBuffer[ 0 ][ 0 ] = 0x00;
     _pixelStateBuffer[ 0 ][ 1 ] = 0x00;
     _pixelStateBuffer[ 0 ][ 2 ] = 0x00;
@@ -281,22 +291,20 @@ void PimoroniDualMatrice::clear( uint8_t matrix ) {
     _pixelStateBuffer[ 1 ][ 2 ] = 0x00;
     _pixelStateBuffer[ 1 ][ 3 ] = 0x00;
     _pixelStateBuffer[ 1 ][ 4 ] = 0x00;
-    
 }
+
 
 
 
 /// @brief Fills the matrix with a single byte on all columns.
 /// @param matrix The matrix to fill.  0 for left, 1 for right.
-/// @param state The byte value to fill the columns with.
+/// @param state The byte value to fill the columns with. LSB is top, MSB is bottom. mask 0b01111111
 void PimoroniDualMatrice::fill( uint8_t matrix , uint8_t state ) {
-
-    _pixelStateBuffer[ matrix ][ 0 ] = state;
-    _pixelStateBuffer[ matrix ][ 1 ] = state;
-    _pixelStateBuffer[ matrix ][ 2 ] = state;
-    _pixelStateBuffer[ matrix ][ 3 ] = state;
-    _pixelStateBuffer[ matrix ][ 4 ] = state;
-    
+    _pixelStateBuffer[ matrix ][ 0 ] = ( state & 0b01111111 );
+    _pixelStateBuffer[ matrix ][ 1 ] = ( state & 0b01111111 );
+    _pixelStateBuffer[ matrix ][ 2 ] = ( state & 0b01111111 );
+    _pixelStateBuffer[ matrix ][ 3 ] = ( state & 0b01111111 );
+    _pixelStateBuffer[ matrix ][ 4 ] = ( state & 0b01111111 );
 }
 
 
@@ -306,7 +314,7 @@ void PimoroniDualMatrice::fill( uint8_t matrix , uint8_t state ) {
 /// @brief Set a column to a byte value.
 /// @param matrix The matrix to update. 0 for legt, 1 for right.
 /// @param xpos The xpos of the column to update. 0-4.
-/// @param state The byte to write to this column.  LSB is top. MSB is bottom.  mask 0b01111111.
+/// @param state The byte to write to this column. LSB is top. MSB is bottom. mask 0b01111111.
 void PimoroniDualMatrice::columnSet( uint8_t matrix , uint8_t xpos , uint8_t state ) {
     _pixelStateBuffer[ matrix ][ xpos ] = ( state & 0b01111111 );
 }
@@ -314,7 +322,7 @@ void PimoroniDualMatrice::columnSet( uint8_t matrix , uint8_t xpos , uint8_t sta
 /// @brief Returns the column as a bute value.
 /// @param matrix The matrix to read. 0 for left, 1 for right.
 /// @param xpos The xpos of the column to read. 0-4.
-/// @return The byte value of the column, as a uint8_t.  LSB is top. MSB is bottom.  mask 0b01111111.
+/// @return The byte value of the column, as a uint8_t. LSB is top. MSB is bottom. mask 0b01111111.
 uint8_t PimoroniDualMatrice::columnGet( uint8_t matrix , uint8_t xpos ) {
     return ( _pixelStateBuffer[ matrix ][ xpos ] & 0b01111111 );
 }
