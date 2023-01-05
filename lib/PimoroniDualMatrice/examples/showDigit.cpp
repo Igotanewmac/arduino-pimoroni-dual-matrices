@@ -5,6 +5,8 @@ Pimoroni i2c Dual Matrices Example.
 This example shows two counters.
 The left matrix will count up.  The right matrix will count down.
 
+This example demonstrates the showDigit method.
+
 */
 
 
