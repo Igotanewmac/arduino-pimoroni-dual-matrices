@@ -2,16 +2,18 @@
 
 Pimoroni i2c Dual Matrices Example.
 
-This example demonstrates the fill method.
 
-This example shows a pair of binary counters.  Each row is a binary digit.  0 for off, 1 for on.
-The left matrix is counting up, the right matrix is counting down.
 
 */
 
 
 // pull in the Arduino framework.
 #include <Arduino.h>
+
+
+
+
+
 
 
 
@@ -51,6 +53,93 @@ void setup() {
 
 
 
+/// @brief A three character wide pixel buffer!
+uint8_t mypixelbuffer[15] = { 0 };
+
+
+
+
+
+
+
+
+
+
+void loadDigitIntoPixelBuffer( uint8_t digit ) {
+
+  uint8_t tempbytes[5] = { 0 };
+
+  tempbytes[ 0 ] = mydualmatrice.columnGet( 0 , 0 );
+  tempbytes[ 1 ] = mydualmatrice.columnGet( 0 , 1 );
+  tempbytes[ 2 ] = mydualmatrice.columnGet( 0 , 2 );
+  tempbytes[ 3 ] = mydualmatrice.columnGet( 0 , 3 );
+  tempbytes[ 4 ] = mydualmatrice.columnGet( 0 , 4 );
+  
+  mydualmatrice.showDigit( 0 , digit );
+
+  // copy out goes here
+  mypixelbuffer[ 10 ] = mydualmatrice.columnGet( 0 , 0 );
+  mypixelbuffer[ 11 ] = mydualmatrice.columnGet( 0 , 1 );
+  mypixelbuffer[ 12 ] = mydualmatrice.columnGet( 0 , 2 );
+  mypixelbuffer[ 13 ] = mydualmatrice.columnGet( 0 , 3 );
+  mypixelbuffer[ 14 ] = mydualmatrice.columnGet( 0 , 4 );
+
+
+  // now put everything back where it belongs
+  mydualmatrice.columnSet( 0 , 1 , tempbytes[ 0 ] );
+  mydualmatrice.columnSet( 1 , 1 , tempbytes[ 1 ] );
+  mydualmatrice.columnSet( 2 , 1 , tempbytes[ 2 ] );
+  mydualmatrice.columnSet( 3 , 1 , tempbytes[ 3 ] );
+  mydualmatrice.columnSet( 4 , 1 , tempbytes[ 4 ] );
+  
+  // now all done, return to caller.
+  return;
+}
+
+
+
+
+void doscroll() {
+  mypixelbuffer[ 0  ] = mypixelbuffer[ 1  ];
+  mypixelbuffer[ 1  ] = mypixelbuffer[ 2  ];
+  mypixelbuffer[ 2  ] = mypixelbuffer[ 3  ];
+  mypixelbuffer[ 3  ] = mypixelbuffer[ 4  ];
+  mypixelbuffer[ 4  ] = mypixelbuffer[ 5  ];
+  mypixelbuffer[ 5  ] = mypixelbuffer[ 6  ];
+  mypixelbuffer[ 6  ] = mypixelbuffer[ 7  ];
+  mypixelbuffer[ 7  ] = mypixelbuffer[ 8  ];
+  mypixelbuffer[ 8  ] = mypixelbuffer[ 9  ];
+  mypixelbuffer[ 9  ] = mypixelbuffer[ 10 ];
+  mypixelbuffer[ 10 ] = mypixelbuffer[ 11 ];
+  mypixelbuffer[ 11 ] = mypixelbuffer[ 12 ];
+  mypixelbuffer[ 12 ] = mypixelbuffer[ 13 ];
+  mypixelbuffer[ 13 ] = mypixelbuffer[ 14 ];
+  mypixelbuffer[ 14 ] = 0x00;
+  return;
+}
+
+
+
+
+
+void sendtochip() {
+
+  mydualmatrice.columnSet( 0 , 0 , mypixelbuffer[ 0 ] );
+  mydualmatrice.columnSet( 0 , 1 , mypixelbuffer[ 1 ] );
+  mydualmatrice.columnSet( 0 , 2 , mypixelbuffer[ 2 ] );
+  mydualmatrice.columnSet( 0 , 3 , mypixelbuffer[ 3 ] );
+  mydualmatrice.columnSet( 0 , 4 , mypixelbuffer[ 4 ] );
+  mydualmatrice.columnSet( 1 , 0 , mypixelbuffer[ 5 ] );
+  mydualmatrice.columnSet( 1 , 1 , mypixelbuffer[ 6 ] );
+  mydualmatrice.columnSet( 1 , 2 , mypixelbuffer[ 7 ] );
+  mydualmatrice.columnSet( 1 , 3 , mypixelbuffer[ 8 ] );
+  mydualmatrice.columnSet( 1 , 4 , mypixelbuffer[ 9 ] );
+  mydualmatrice.updateDisplay();
+
+  return;
+
+}
+
 
 
 
@@ -60,41 +149,38 @@ void loop() {
   // clear the old screen off
   mydualmatrice.clearAll();
 
-  // count from 0 to 0b10000000
-  for ( uint8_t x = 0 ; x < 0b10000000 ; x++ ) {
+  //mydualmatrice.
 
-    // write the current number to the left matrix.
-    mydualmatrice.fill( 0 , x );
 
-    // write the inverse of the current number to the right matrix.
-    mydualmatrice.fill( 1 , ~x );
+  // do stuff
 
-    // tell the chip to update the display.
-    mydualmatrice.updateDisplay();
+  for ( uint8_t x = 0 ; x < 16 ; x++ ) {
+      
 
-    // wait a while
-    delay( 100 );
+    loadDigitIntoPixelBuffer( x );
 
-    // now go around again for the next iteration of x.
+    for ( int i = 0 ; i < 5 ; i++ ) {
+      doscroll();
+      sendtochip();
+      delay( 100 );
+    }
+
+    mypixelbuffer[10] = 0b00000000;
+    mypixelbuffer[11] = 0b00001000;
+    mypixelbuffer[12] = 0b00010100;
+    mypixelbuffer[13] = 0b00001000;
+    mypixelbuffer[14] = 0b00000000;
+    
+    for ( int i = 0 ; i < 5 ; i++ ) {
+      doscroll();
+      sendtochip();
+      delay( 100 );
+    }
+
 
   }
 
 
-  // show the end result for a second.
-  delay( 1000 );
-
-
-  // blank the screen for the end.
-  mydualmatrice.clearAll();
-
-  // tell the chip to update the display.
-  mydualmatrice.updateDisplay();
-   
-  // now wait a while
-  delay( 1000 );
-
-  // and go around again.
-  return;
 
 }
 

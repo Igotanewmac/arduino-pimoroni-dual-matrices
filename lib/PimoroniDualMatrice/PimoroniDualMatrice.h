@@ -179,12 +179,6 @@ public:
 
 
 
-
-
-
-
-
-
     // control register commands
 
     // 0x00 Configuration Register.
@@ -288,9 +282,6 @@ public:
 
 
 };
-
-
-
 
 
 

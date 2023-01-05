@@ -511,6 +511,14 @@ void PimoroniDualMatrice::showDigit( uint8_t matrix , uint8_t digit ) {
 
 
 
+
+
+
+
+
+
+
+
 // control register commands
 
 // 0x00 Configuration Register.
