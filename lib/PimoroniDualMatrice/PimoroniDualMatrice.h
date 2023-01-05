@@ -131,8 +131,8 @@ public:
 
 
 
-
-
+    /// @brief Clears the pixelbuffer
+    void clear();
 
 
 

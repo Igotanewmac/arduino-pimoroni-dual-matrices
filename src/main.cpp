@@ -50,35 +50,64 @@ void setup() {
 
 
 
+uint8_t xpos = 0;
+
+uint8_t ypos = 0;
 
 
-/// @brief A counter for the display digit.
-uint8_t x = 0;
 
 
 /// @brief Arduino framework main loop. update the display with a new number on each matrix.
 void loop() {
 
-  // show an increasing counter on the left matrix.
-  mydualmatrice.showDigit( 0 , x );
-  
-  // show a decreasing counter on the right matrix.
-  mydualmatrice.showDigit( 1 , 15 - x );
+  // clear the old screen off
+  mydualmatrice.clear();
+
+  // first, lets move in a random direction.
+
+  if ( (uint8_t)( random( 2 ) ) ) {
+    if ( xpos != 9 ) {
+      xpos++;
+    }
+  }
+  else {
+    if ( xpos != 0 ) {
+      xpos--;
+    }
+  }
+
+  if ( (uint8_t)( random( 2 ) ) ) {
+    if ( ypos != 6 ) {
+      ypos++;
+    }
+  }
+  else {
+    if ( ypos != 0 ) {
+      ypos--;
+    }
+  }
+
+  // now setpixel this location...
+
+  if ( xpos < 5 ) {
+    mydualmatrice.pixelSet( 0 , xpos , ypos , 1 );
+  }
+  else {
+    mydualmatrice.pixelSet( 1 , xpos - 5 , ypos , 1 );
+  }
+
+
+
+
+
+
+
   
   // tell the chip to update the display, and show the new numbers.
   mydualmatrice.updateDisplay();
-  
-  // increase the counter for the next loop.
-  x++;
-
-  // if the counter is 16 ...
-  if ( x == 0x10 ) {
-    // ... then reset it to zero.
-    x = 0;
-  }
-  
+   
   // now wait a while
-  delay( 500 );
+  delay( 250 );
 
   // and go around again.
   return;

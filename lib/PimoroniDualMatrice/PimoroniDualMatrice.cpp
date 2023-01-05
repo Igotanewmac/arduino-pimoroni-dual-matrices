@@ -267,7 +267,21 @@ uint8_t PimoroniDualMatrice::pixelGet( uint8_t matrix , uint8_t xpos , uint8_t y
 
 
 
+/// @brief Clears the pixelbuffer
+void PimoroniDualMatrice::clear() {
 
+    _pixelStateBuffer[ 0 ][ 0 ] = 0x00;
+    _pixelStateBuffer[ 0 ][ 1 ] = 0x00;
+    _pixelStateBuffer[ 0 ][ 2 ] = 0x00;
+    _pixelStateBuffer[ 0 ][ 3 ] = 0x00;
+    _pixelStateBuffer[ 0 ][ 4 ] = 0x00;
+    _pixelStateBuffer[ 1 ][ 0 ] = 0x00;
+    _pixelStateBuffer[ 1 ][ 1 ] = 0x00;
+    _pixelStateBuffer[ 1 ][ 2 ] = 0x00;
+    _pixelStateBuffer[ 1 ][ 3 ] = 0x00;
+    _pixelStateBuffer[ 1 ][ 4 ] = 0x00;
+    
+}
 
 
 
