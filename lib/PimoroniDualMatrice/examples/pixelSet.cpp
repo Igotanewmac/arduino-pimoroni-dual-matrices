@@ -2,9 +2,9 @@
 
 Pimoroni i2c Dual Matrices Example.
 
-This example shows a dot chasing around on the matrices.
-
 This example demonstrates the pixelSet method.
+
+This example shows a dot chasing around on the matrices.
 
 */
 
