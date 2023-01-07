@@ -66,32 +66,28 @@ uint8_t mypixelbuffer[15] = { 0 };
 
 
 void loadDigitIntoPixelBuffer( uint8_t digit ) {
-
+  // temporary storage
   uint8_t tempbytes[5] = { 0 };
-
+  // load matrix - into temprary storage
   tempbytes[ 0 ] = mydualmatrice.columnGet( 0 , 0 );
   tempbytes[ 1 ] = mydualmatrice.columnGet( 0 , 1 );
   tempbytes[ 2 ] = mydualmatrice.columnGet( 0 , 2 );
   tempbytes[ 3 ] = mydualmatrice.columnGet( 0 , 3 );
   tempbytes[ 4 ] = mydualmatrice.columnGet( 0 , 4 );
-  
+  // load digit into matrix 0
   mydualmatrice.showDigit( 0 , digit );
-
   // copy out goes here
   mypixelbuffer[ 10 ] = mydualmatrice.columnGet( 0 , 0 );
   mypixelbuffer[ 11 ] = mydualmatrice.columnGet( 0 , 1 );
   mypixelbuffer[ 12 ] = mydualmatrice.columnGet( 0 , 2 );
   mypixelbuffer[ 13 ] = mydualmatrice.columnGet( 0 , 3 );
   mypixelbuffer[ 14 ] = mydualmatrice.columnGet( 0 , 4 );
-
-
   // now put everything back where it belongs
   mydualmatrice.columnSet( 0 , 1 , tempbytes[ 0 ] );
   mydualmatrice.columnSet( 1 , 1 , tempbytes[ 1 ] );
   mydualmatrice.columnSet( 2 , 1 , tempbytes[ 2 ] );
   mydualmatrice.columnSet( 3 , 1 , tempbytes[ 3 ] );
   mydualmatrice.columnSet( 4 , 1 , tempbytes[ 4 ] );
-  
   // now all done, return to caller.
   return;
 }
@@ -123,7 +119,6 @@ void doscroll() {
 
 
 void sendtochip() {
-
   mydualmatrice.columnSet( 0 , 0 , mypixelbuffer[ 0 ] );
   mydualmatrice.columnSet( 0 , 1 , mypixelbuffer[ 1 ] );
   mydualmatrice.columnSet( 0 , 2 , mypixelbuffer[ 2 ] );
@@ -135,9 +130,7 @@ void sendtochip() {
   mydualmatrice.columnSet( 1 , 3 , mypixelbuffer[ 8 ] );
   mydualmatrice.columnSet( 1 , 4 , mypixelbuffer[ 9 ] );
   mydualmatrice.updateDisplay();
-
   return;
-
 }
 
 
